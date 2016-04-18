@@ -18,7 +18,7 @@
 		foreach (Renderer child in renders){
 			center += child.bounds.center;   
 		}
-		center /= parent.GetComponentsInChildren().Length; 
+		center /= parent.GetComponentsInChildren<Transform>().Length; 
 		Bounds bounds = new Bounds(center,Vector3.zero);
 		foreach (Renderer child in renders){
 			bounds.Encapsulate(child.bounds);   
