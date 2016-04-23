@@ -1,0 +1,22 @@
+using UnityEngine;
+using System.Collections;
+ 
+public class NewBehaviourScript : MonoBehaviour {
+ 
+	UISprite sprite;
+	void Awake ()
+	{
+		sprite = GetComponent<UISprite>();
+	}
+ 
+	void Update () 
+	{
+ 
+		sprite.fillAmount -=0.01f ;
+ 
+		if(sprite.fillAmount  == 0)
+		{
+			sprite.fillAmount  =1f;
+		}
+	}
+}
