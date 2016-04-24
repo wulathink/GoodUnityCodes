@@ -1,0 +1,67 @@
+private UIInput ipf;
+    [DllImport("USER32.DLL")]
+    public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);  //导入寻找windows窗体的方法
+    [DllImport("USER32.DLL")]
+    public static extern bool SetForegroundWindow(IntPtr hWnd);  //导入为windows窗体设置焦点的方法
+    [DllImport("USER32.DLL")]
+    public static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);  //导入模拟键盘的方法
+
+
+    public GameObject Key_L;
+    public GameObject Key_I;
+    public GameObject Key_U;
+    public GameObject Key_P;
+    public GameObject Key_A;
+
+
+    // Use this for initialization
+    void Start ()
+    {
+        ipf = gameObject.GetComponent<UIInput>();
+        //UIEventListener.Get(gameObject).onClick = _test;
+        UIEventListener.Get(Key_L).onClick = _keyPress;
+        UIEventListener.Get(Key_P).onClick = _keyPress;
+    }
+
+    void _test(GameObject go)
+    {
+        ipf.value = "";
+    }
+
+    void _keyPress(GameObject go)
+    {
+        Debug.Log("pressed " + go.name);
+        ipf.isSelected = true;
+        if (go.name == "L")
+        {
+            //L
+            keybd_event(0x4C, 0, 0, 0);
+            keybd_event(0x4C, 0, 2, 0);
+            //ipf.value = "L";
+        }
+        else
+        {
+            //P
+            ipf.value = "";
+            keybd_event(0x4C, 0, 0, 0);
+            keybd_event(0x4C, 0, 2, 0);
+            keybd_event(0x50, 0, 0, 0);
+            keybd_event(0x50, 0, 2, 0);
+            //ipf.value = "p";
+        }
+    }
+	// Update is called once per frame
+	void Update () {
+        ///模拟按键control + space
+	    if (Input.GetMouseButtonDown(1))
+	    {
+            keybd_event(0x11, 0, 0, 0);
+            keybd_event(0x20, 0, 0, 0);
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            keybd_event(0x11, 0, 2, 0);
+            keybd_event(0x20, 0, 2, 0);
+        }
+    }
+}
