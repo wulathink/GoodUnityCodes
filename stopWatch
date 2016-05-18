@@ -1,0 +1,35 @@
+using UnityEngine;
+using System.Collections;
+using System.Diagnostics;
+  
+public class NewBehaviourScript : MonoBehaviour {
+  
+    void Start () {
+     
+        float t = Time.time;
+        TestMethod();
+        UnityEngine.Debug.Log(string.Format("total: {0} ms",Time.time - t));
+  
+  
+  
+        Stopwatch sw = new Stopwatch();
+        sw.Start();
+        TestMethod();
+        sw.Stop();
+        UnityEngine.Debug.Log(string.Format("total: {0} ms",sw.ElapsedMilliseconds));
+  
+  
+        Profiler.BeginSample("TestMethod");
+        TestMethod();
+        Profiler.EndSample();
+    }
+  
+  
+    void TestMethod()
+    {
+        for(int i =0; i < 10000000; i++)
+        {
+        }
+    }
+  
+}
